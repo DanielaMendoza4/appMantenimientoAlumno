@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">appMantenimientoAlumno</string>
+    <string name="app_name">appmantenimiento</string>
+    <string name="hint_nombre">Nombre:</string>
+    <string name="hint_telefono">Telefono:</string>
+    <string name="hint_correo_electronico">Correo Electronico:</string>
+    <string name="btn_guardar">Guardar Registro:</string>
+    <string name="menu_nuevo">Nuevo Registro:</string>
 </resources>
