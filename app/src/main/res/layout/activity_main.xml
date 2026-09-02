@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/blue"
-        app:logo="@drawable/senati_logo"
+        app:logo="@android:drawable/ic_menu_edit"
         app:title="Lista de Alumnos"
         app:titleTextColor="@android:color/white" />
 

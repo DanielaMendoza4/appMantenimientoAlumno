@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewAlumnos;
     private AlumnoAdapter adapter;
+
+
     private TextView tvVacio;
     private List<Alumno> listaAlumnos;
 
