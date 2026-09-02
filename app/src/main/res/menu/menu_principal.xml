@@ -4,6 +4,8 @@
 
     <item
         android:id="@+id/menuNuevo"
-        android:title="Nuevo"/>
+        android:title="Nuevo alumno"
+        android:icon="@android:drawable/ic_input_add"
+        app:showAsAction="ifRoom" />
 
 </menu>

@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
+        android:background="?attr/colorPrimary"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:title="Registrar Alumno"
         app:titleTextColor="@android:color/white" />
@@ -72,8 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="GUARDAR"
-                android:textSize="18sp"
-                android:backgroundTint="@color/primary" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/btnBuscar"
@@ -82,11 +81,11 @@
                 android:layout_weight="1"
                 android:text="BUSCAR"
                 android:textSize="18sp"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@color/accent" />
+                android:layout_marginStart="8dp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
 </LinearLayout>
+    git status
