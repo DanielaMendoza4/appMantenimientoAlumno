@@ -83,13 +83,13 @@ public class alumnos {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         try {
             Cursor cursor = db.query(
-                Dbhelper.TABLE_CONTACTOS,
-                null,
-                "id = ?",
-                new String[]{String.valueOf(id)},
-                null,
-                null,
-                null
+                    Dbhelper.TABLE_CONTACTOS,
+                    null,
+                    "id = ?",
+                    new String[]{String.valueOf(id)},
+                    null,
+                    null,
+                    null
             );
             if (cursor.moveToFirst()) {
                 alumno = new Alumno();
@@ -105,6 +105,48 @@ public class alumnos {
             db.close();
         }
         return alumno;
+    }
+
+    // AGREGADO: actualizar los datos de un alumno existente (Update del CRUD)
+    public int actualizarAlumno(Alumno alumno) {
+        int filasActualizadas = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("nombre", alumno.getNombre());
+            values.put("telefono", alumno.getTelefono());
+            values.put("correo_electronico", alumno.getCorreoElectronico());
+
+            filasActualizadas = db.update(
+                    Dbhelper.TABLE_CONTACTOS,
+                    values,
+                    "id = ?",
+                    new String[]{String.valueOf(alumno.getId())}
+            );
+        } catch (Exception ex) {
+            ex.toString();
+        } finally {
+            db.close();
+        }
+        return filasActualizadas;
+    }
+
+    // AGREGADO: eliminar un alumno por su ID (Delete del CRUD)
+    public int eliminarAlumno(int id) {
+        int filasEliminadas = 0;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        try {
+            filasEliminadas = db.delete(
+                    Dbhelper.TABLE_CONTACTOS,
+                    "id = ?",
+                    new String[]{String.valueOf(id)}
+            );
+        } catch (Exception ex) {
+            ex.toString();
+        } finally {
+            db.close();
+        }
+        return filasEliminadas;
     }
 
     public int importarCSV(List<Alumno> alumnos) {
