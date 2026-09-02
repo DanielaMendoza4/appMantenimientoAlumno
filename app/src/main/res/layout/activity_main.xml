@@ -1,46 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FB"
     tools:context=".MainActivity">
 
+    <!-- BARRA SUPERIOR -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/blue"
+        android:elevation="6dp"
         app:logo="@drawable/senati_logo"
         app:title="Lista de Alumnos"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"
+        app:logoDescription="Logo SENATI" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAlumnos"
+    <!-- CONTENIDO -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:layout_marginTop="?attr/actionBarSize"
-        android:padding="8dp"
-        android:clipToPadding="false" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvVacio"
-        android:layout_width="wrap_content"
+        <!-- ENCABEZADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alumnos registrados"
+                android:textColor="#1F2937"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Consulta y administra los estudiantes"
+                android:textColor="#6B7280"
+                android:textSize="14sp"
+                android:layout_marginTop="3dp" />
+
+        </LinearLayout>
+
+        <!-- LISTA -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAlumnos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="80dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_alumno" />
+
+    </LinearLayout>
+
+    <!-- MENSAJE CUANDO NO HAY ALUMNOS -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="No hay alumnos registrados"
-        android:textSize="18sp"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="30dp">
 
+        <TextView
+            android:id="@+id/tvVacio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No hay alumnos registrados"
+            android:textColor="#6B7280"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Presiona + para agregar un alumno"
+            android:textColor="#9CA3AF"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- BOTÓN AGREGAR -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="Agregar alumno"
-        app:tint="@android:color/white" />
+        android:elevation="8dp"
+        app:backgroundTint="@color/blue"
+        app:tint="@android:color/white"
+        app:borderWidth="0dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

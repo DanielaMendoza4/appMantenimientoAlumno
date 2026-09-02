@@ -6,85 +6,208 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F5F3FA"
     tools:context=".NuevoActivity">
 
+    <!-- TOOLBAR -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="#673AB7"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:title="Registrar Alumno"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"
+        app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <EditText
-            android:id="@+id/txtId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ID"
-            android:inputType="number"
-            android:enabled="true"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/txtNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_nombre"
-            android:inputType="text"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/txtTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_telefono"
-            android:ems="10"
-            android:inputType="phone"
-            android:textSize="24sp" />
-
-        <EditText
-            android:id="@+id/txtCorreoElectronico"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_correo_electronico"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:textSize="24sp" />
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:orientation="vertical"
+            android:padding="18dp">
 
-            <Button
-                android:id="@+id/btnGuarda"
-                android:layout_width="0dp"
+            <!-- ENCABEZADO -->
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="GUARDAR"
-                android:textSize="18sp" />
+                android:text="👨‍🎓"
+                android:textSize="50sp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"/>
 
-            <Button
-                android:id="@+id/btnBuscar"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="BUSCAR"
-                android:textSize="18sp"
-                android:layout_marginStart="8dp" />
+                android:text="Nuevo Alumno"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                android:textColor="#2D1B69"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingresa los datos del estudiante"
+                android:textSize="15sp"
+                android:textColor="#777777"
+                android:gravity="center"
+                android:layout_marginBottom="18dp"/>
+
+
+            <!-- TARJETA DEL FORMULARIO -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <!-- ID -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ID del alumno"
+                        android:layout_marginBottom="12dp"
+                        app:startIconDrawable="@drawable/ic_id"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textSize="17sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!-- NOMBRE -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre completo"
+                        android:layout_marginBottom="12dp"
+                        app:startIconDrawable="@drawable/ic_person"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtNombre"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:textSize="17sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!-- TELEFONO -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Número de teléfono"
+                        android:layout_marginBottom="12dp"
+                        app:startIconDrawable="@drawable/ic_phone"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtTelefono"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:textSize="17sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!-- CORREO -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Correo electrónico"
+                        android:layout_marginBottom="20dp"
+                        app:startIconDrawable="@drawable/ic_email"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusBottomEnd="14dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtCorreoElectronico"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:textSize="17sp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <!-- BOTONES -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnGuarda"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:text="GUARDAR ALUMNO"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="#673AB7"
+                        app:cornerRadius="15dp"
+                        android:elevation="4dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBuscar"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="10dp"
+                        android:text="BUSCAR ALUMNO"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#673AB7"
+                        app:strokeColor="#673AB7"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="15dp"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- TEXTO INFERIOR -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Los datos serán guardados de forma segura"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
