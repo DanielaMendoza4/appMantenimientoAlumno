@@ -45,8 +45,8 @@
         <!-- AGREGADO: botón para editar el alumno -->
         <ImageButton
             android:id="@+id/btnEditar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="46dp"
+            android:layout_height="61dp"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
             android:contentDescription="Editar"
@@ -56,8 +56,8 @@
         <!-- AGREGADO: botón para eliminar el alumno -->
         <ImageButton
             android:id="@+id/btnEliminar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="44dp"
+            android:layout_height="61dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:background="@android:color/transparent"
