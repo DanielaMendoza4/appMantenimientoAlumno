@@ -21,6 +21,10 @@ public class NuevoActivity extends AppCompatActivity {
 
     private EditText txtId, txtnombre, txtTelefono, txtCorreoElectronico;
     private Button btnGuarda, btnBuscar;
+    private MaterialToolbar toolbar; // CAMBIADO: ahora es variable de la clase (antes era local) para poder cambiar el título en modo edición
+
+    // AGREGADO: guarda el ID del alumno cuando estamos editando; -1 significa que es un registro nuevo
+    private int idEditar = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class NuevoActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_nuevo);
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +48,21 @@ public class NuevoActivity extends AppCompatActivity {
         txtCorreoElectronico = findViewById(R.id.txtCorreoElectronico);
         btnGuarda = findViewById(R.id.btnGuarda);
         btnBuscar = findViewById(R.id.btnBuscar);
+
+        // AGREGADO: si venimos desde el botón Editar de la lista, cargamos los datos del alumno
+        if (getIntent().hasExtra("ALUMNO_ID")) {
+            idEditar = getIntent().getIntExtra("ALUMNO_ID", -1);
+            alumnos dbalumnosInicial = new alumnos(this);
+            Alumno alumnoExistente = dbalumnosInicial.buscarPorId(idEditar);
+            if (alumnoExistente != null) {
+                txtId.setText(String.valueOf(alumnoExistente.getId()));
+                txtnombre.setText(alumnoExistente.getNombre());
+                txtTelefono.setText(alumnoExistente.getTelefono());
+                txtCorreoElectronico.setText(alumnoExistente.getCorreoElectronico());
+                btnGuarda.setText("ACTUALIZAR");
+                toolbar.setTitle("Editar Alumno");
+            }
+        }
 
         btnGuarda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,13 +89,30 @@ public class NuevoActivity extends AppCompatActivity {
                 }
 
                 alumnos dbalumnos = new alumnos(NuevoActivity.this);
-                long id = dbalumnos.insertarContactos(nombre, telefono, correo);
 
-                if (id > 0) {
-                    Toast.makeText(NuevoActivity.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
-                    Limpiar();
+                // CAMBIADO: si estamos en modo edición, actualiza el registro; si no, inserta uno nuevo (como antes)
+                if (idEditar != -1) {
+                    Alumno alumno = new Alumno();
+                    alumno.setId(idEditar);
+                    alumno.setNombre(nombre);
+                    alumno.setTelefono(telefono);
+                    alumno.setCorreoElectronico(correo);
+
+                    int filas = dbalumnos.actualizarAlumno(alumno);
+                    if (filas > 0) {
+                        Toast.makeText(NuevoActivity.this, "ALUMNO ACTUALIZADO", Toast.LENGTH_LONG).show();
+                        finish(); // AGREGADO: vuelve a la lista automáticamente tras actualizar
+                    } else {
+                        Toast.makeText(NuevoActivity.this, "ERROR AL ACTUALIZAR", Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    Toast.makeText(NuevoActivity.this, "ERROR AL GUARDAR REGISTRO", Toast.LENGTH_LONG).show();
+                    long id = dbalumnos.insertarContactos(nombre, telefono, correo);
+                    if (id > 0) {
+                        Toast.makeText(NuevoActivity.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
+                        Limpiar();
+                    } else {
+                        Toast.makeText(NuevoActivity.this, "ERROR AL GUARDAR REGISTRO", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

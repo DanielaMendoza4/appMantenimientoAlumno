@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="blue">#FF1565C0</color>
+    <!-- CAMBIADO: paleta unificada, azul marino sofisticado en vez de azul/morado sin relación entre pantallas -->
+    <color name="primary">#1F2A44</color>
+    <color name="primary_dark">#141B2E</color>
+    <color name="accent">#C9A227</color>
+
+    <!-- AGREGADO: colores para los botones de editar y eliminar en cada fila de la lista -->
+    <color name="editar">#3F72AF</color>
+    <color name="eliminar">#B00020</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="background_claro">#F7F7FA</color>
+
+    <!-- CAMBIADO: "blue" ahora apunta al mismo azul marino, para no romper referencias existentes en activity_main.xml -->
+    <color name="blue">#1F2A44</color>
 </resources>
+

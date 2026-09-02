@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -38,7 +39,32 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fabAgregar = findViewById(R.id.fabAgregar);
 
         listaAlumnos = new ArrayList<>();
-        adapter = new AlumnoAdapter(listaAlumnos);
+
+        // CAMBIADO: el adapter ahora recibe un listener para manejar Editar y Eliminar de cada fila
+        adapter = new AlumnoAdapter(listaAlumnos, new AlumnoAdapter.OnAlumnoClickListener() {
+            @Override
+            public void onEditar(Alumno alumno) {
+                // AGREGADO: abre NuevoActivity enviando el ID del alumno, para que cargue sus datos y permita editarlos
+                Intent intent = new Intent(MainActivity.this, NuevoActivity.class);
+                intent.putExtra("ALUMNO_ID", alumno.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onEliminar(Alumno alumno) {
+                // AGREGADO: diálogo de confirmación antes de eliminar el registro
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Eliminar alumno")
+                        .setMessage("¿Seguro que deseas eliminar a " + alumno.getNombre() + "?")
+                        .setPositiveButton("Eliminar", (dialog, which) -> {
+                            alumnos dbAlumnos = new alumnos(MainActivity.this);
+                            dbAlumnos.eliminarAlumno(alumno.getId());
+                            cargarLista();
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
+        });
 
         recyclerViewAlumnos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewAlumnos.setAdapter(adapter);
