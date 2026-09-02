@@ -1,5 +1,6 @@
 package com.example.appmantenimientoalumno;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +13,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.appmantenimientoalumno.R;
-import com.example.appmantenimientoalumno.db.Dbhelper;
+import com.example.appmantenimientoalumno.db.Alumno;
 import com.example.appmantenimientoalumno.db.alumnos;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class NuevoActivity extends AppCompatActivity {
-    // Asignar nuestras variables
-    private EditText txtnombre, txtTelefono, txtCorreoElectronico;
-    private Button btnGuarda;
+
+    private EditText txtId, txtnombre, txtTelefono, txtCorreoElectronico;
+    private Button btnGuarda, btnBuscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +28,49 @@ public class NuevoActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_nuevo);
 
-        // Añadiendo las variables los elementos de la vista
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NuevoActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        txtId = findViewById(R.id.txtId);
         txtnombre = findViewById(R.id.txtNombre);
         txtTelefono = findViewById(R.id.txtTelefono);
         txtCorreoElectronico = findViewById(R.id.txtCorreoElectronico);
-        btnGuarda = findViewById(R.id.BtnGuarda);
+        btnGuarda = findViewById(R.id.btnGuarda);
+        btnBuscar = findViewById(R.id.btnBuscar);
 
         btnGuarda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alumnos dbalumnos = new alumnos(NuevoActivity.this);
+                String idTexto = txtId.getText().toString().trim();
+                String nombre = txtnombre.getText().toString().trim();
+                String telefono = txtTelefono.getText().toString().trim();
+                String correo = txtCorreoElectronico.getText().toString().trim();
 
-                long id = dbalumnos.insertarContactos(
-                        txtnombre.getText().toString(),
-                        txtTelefono.getText().toString(),
-                        txtCorreoElectronico.getText().toString());
+                if (idTexto.isEmpty()) {
+                    txtId.setError("Ingrese el ID");
+                    txtId.requestFocus();
+                    return;
+                }
+                if (nombre.isEmpty()) {
+                    txtnombre.setError("Ingrese el nombre");
+                    txtnombre.requestFocus();
+                    return;
+                }
+                if (telefono.isEmpty()) {
+                    txtTelefono.setError("Ingrese el teléfono");
+                    txtTelefono.requestFocus();
+                    return;
+                }
+
+                alumnos dbalumnos = new alumnos(NuevoActivity.this);
+                long id = dbalumnos.insertarContactos(nombre, telefono, correo);
 
                 if (id > 0) {
                     Toast.makeText(NuevoActivity.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
@@ -52,6 +81,13 @@ public class NuevoActivity extends AppCompatActivity {
             }
         });
 
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buscarAlumno();
+            }
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,7 +95,31 @@ public class NuevoActivity extends AppCompatActivity {
         });
     }
 
-    private void Limpiar(){
+    private void buscarAlumno() {
+        String idTexto = txtId.getText().toString().trim();
+
+        if (idTexto.isEmpty()) {
+            txtId.setError("Ingrese un ID");
+            txtId.requestFocus();
+            return;
+        }
+
+        int id = Integer.parseInt(idTexto);
+        alumnos dbalumnos = new alumnos(this);
+        Alumno alumno = dbalumnos.buscarPorId(id);
+
+        if (alumno != null) {
+            txtnombre.setText(alumno.getNombre());
+            txtTelefono.setText(alumno.getTelefono());
+            txtCorreoElectronico.setText(alumno.getCorreoElectronico());
+            Toast.makeText(this, "ALUMNO ENCONTRADO", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "ALUMNO NO ENCONTRADO", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void Limpiar() {
+        txtId.setText("");
         txtnombre.setText("");
         txtTelefono.setText("");
         txtCorreoElectronico.setText("");

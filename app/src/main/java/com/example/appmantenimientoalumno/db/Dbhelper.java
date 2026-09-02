@@ -9,7 +9,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     // definimos variables para controlar los cambios en la base de datos
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NOMBRE = "senati.db";
-    public static final String TABLE_CONCTACTOS = "alumnos";
+    public static final String TABLE_CONTACTOS = "alumnos";
 
     // Constructor DbHelper
     public Dbhelper(@Nullable Context context) {
@@ -19,7 +19,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     // Evento que se ejecuta para crear la base de datos
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CONCTACTOS + "(" +
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_CONTACTOS + "(" +
                 " id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " nombre TEXT NOT NULL," +
                 " telefono TEXT NOT NULL," +
@@ -30,7 +30,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         // primero eliminamos la tabla que tenemos y luego agregamos una nueva tabla
-        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_CONCTACTOS);
+        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_CONTACTOS);
         onCreate(sqLiteDatabase);
     }
 }
